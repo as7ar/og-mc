@@ -10,7 +10,7 @@ export default function ContactPage() {
                 <section className="contact-hero">
                     <h1 className="contact-title">CONTACT</h1>
                     <p className="contact-desc">
-                        Contact-description
+                        문의는 언제나 열려있습니다.
                     </p>
 
                     <div className="contact-info">

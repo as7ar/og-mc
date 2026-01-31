@@ -35,6 +35,39 @@ a {
   text-decoration: none;
 }
 
+.error-page {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(
+          circle at top right,
+          #1a1a1a 0%,
+          #0b0b0b 40%,
+          #000 100%
+  );
+}
+
+.error-main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.error-desc {
+  font-family: var(--font-mojang);
+  font-weight: 300;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  opacity: 0.75;
+  color: #fff;
+}
+
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

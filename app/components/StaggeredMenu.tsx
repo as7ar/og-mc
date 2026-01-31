@@ -5,6 +5,7 @@ import '../assets/styles/StaggeredMenu.css';
 import React, {useCallback, useLayoutEffect, useRef, useState} from "react";
 import Image from "next/image";
 import logo from "../assets/images/logo.png";
+import Link from "next/link";
 
 export interface StaggeredMenuItem {
     label: string;
@@ -402,12 +403,14 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                 })()}
             </div>
             <header className="staggered-menu-header" aria-label="Main navigation header">
-                <Image
-                    src={logo}
-                    alt="OG LOGO"
-                    className="sm-logo-img"
-                    width={320} height={320}
-                />
+                <Link href={"/"}>
+                    <Image
+                        src={logo}
+                        alt="OG LOGO"
+                        className="sm-logo-img"
+                        width={320} height={320}
+                    />
+                </Link>
                 <button
                     ref={toggleBtnRef}
                     className="sm-toggle"

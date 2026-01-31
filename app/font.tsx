@@ -16,6 +16,11 @@ export const pretendard = localFont({
             path: "./assets/fonts/Mojang-Bold.ttf",
             weight: "700",
             style: "normal"
+        },
+        {
+            path: "./assets/fonts/DungGeunMo.ttf",
+            weight: "300",
+            style: "normal"
         }
     ],
     variable: "--font-mojang",
