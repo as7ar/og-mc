@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="GitLabMergeRequestsSettings">{}</component>
-  <component name="GithubPullRequestsUISettings">{}</component>
-  <component name="KubernetesApiProvider">{}</component>
+  <component name="GitLabMergeRequestsSettings"><![CDATA[{}]]></component>
+  <component name="KubernetesApiProvider"><![CDATA[{}]]></component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />

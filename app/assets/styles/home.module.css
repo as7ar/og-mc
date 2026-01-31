@@ -1,0 +1,99 @@
+.page {
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.bg {
+    position: absolute;
+    inset: 0;
+    background-image: url("../images/0.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: scale(1.05);
+    filter: blur(2px);
+    z-index: 0;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background:
+            radial-gradient(
+                    circle at top right,
+                    rgba(80, 120, 200, 0.25),
+                    transparent 45%
+            ),
+            linear-gradient(
+                    to bottom,
+                    rgba(0, 0, 0, 0.45),
+                    rgba(0, 0, 0, 0.85)
+            );
+    z-index: 1;
+}
+
+.main {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    z-index: 2;
+}
+
+.hero {
+    padding-right: 6rem;
+    text-align: right;
+}
+
+.imageWrap {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1.8rem;
+}
+
+.logo {
+    width: 20rem;
+    border-radius: 2rem;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.04);
+    filter: brightness(1.15);
+}
+
+.glow {
+    position: absolute;
+    inset: -24px;
+    background: radial-gradient(
+            circle,
+            rgba(120, 180, 255, 0.35),
+            transparent 70%
+    );
+    filter: blur(35px);
+    z-index: 1;
+}
+
+.textBox {
+    padding-right: 2.5rem;
+}
+
+.title {
+    font-family: var(--font-mojang);
+    font-weight: 700;
+    font-size: 3.5rem;
+    letter-spacing: 0.14em;
+    margin: 0;
+}
+
+.desc {
+    font-family: var(--font-mojang);
+    font-weight: 400;
+    font-size: 1.15rem;
+    opacity: 0.75;
+    margin-top: 0.6rem;
+}
