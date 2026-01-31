@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "OG Server",
-  description: "새로운 경험을 겪어보세요",
+  description: "보다 더 새롭고, 의미있는 경험을 위해",
   icons: {
     icon: favicon.src,
   }

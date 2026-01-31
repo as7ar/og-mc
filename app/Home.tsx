@@ -23,7 +23,7 @@ export default function Home() {
                     <div className={styles.textBox}>
                         <h2 className={styles.title}>OG SERVER</h2>
                         <p className={styles.desc}>
-                            Shorts Server Description
+                            보다 더 새롭고, 의미있는 경험을 위해
                         </p>
                     </div>
                 </div>
