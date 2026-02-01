@@ -31,7 +31,7 @@ export default function Home() {
 
                 <div className={styles.heroActions}>
                     <a href="#about" className={`${styles.btn} ${styles.btnPrimary}`}>서버 소개 보기</a>
-                    <a href="/contact" className={`${styles.btn} ${styles.btnSecondary}`}>문의하기</a>
+                    <a href="/contact" className={`${styles.btn} ${styles.btnSecondary}`}>CONTACT</a>
                 </div>
 
                 <section id={`about`} className={`${styles.section}`}>

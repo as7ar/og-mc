@@ -11,7 +11,7 @@ export default function ErrorPage() {
                     enableOnHover={false}
                 >404</GlitchText>
                 <p className="error-desc">
-                    죄송합니다 해당 페이지를 찾을 수 없습니다.
+                    죄송합니다. 해당 페이지를 찾을 수 없습니다.
                 </p>
             </div>
         </div>
