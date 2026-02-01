@@ -35,17 +35,21 @@
 .contact-main {
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
+    gap: 4rem;
     position: relative;
     z-index: 2;
 }
 
 .contact-hero {
-    padding-right: 6rem;
-    text-align: right;
     color: #fff;
-    max-width: 520px;
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .contact-title {
@@ -56,6 +60,14 @@
     margin: 0;
 }
 
+.contact-subtitle {
+    font-family: var(--font-mojang);
+    font-weight: 700;
+    font-size: 1.6rem;
+    letter-spacing: 0.12em;
+    margin: 0.2rem 0 0;
+}
+
 .contact-desc {
     font-family: var(--font-mojang);
     font-weight: 300;
@@ -64,10 +76,77 @@
     opacity: 0.75;
 }
 
-.contact-info {
-    font-family: var(--font-mojang);
-    margin-top: 2.2rem;
-    font-size: 1rem;
-    line-height: 1.8;
-    opacity: 0.9;
+.contact-card {
+    width: 20rem;
+    display: grid;
+    place-items: center;
+    padding: 40px;
+    border-radius: 1.6rem;
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+}
+
+.grid-2 {
+    margin-top: 2.8rem;
+    display: flex;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    width: 100%;
+}
+
+.contact-card:hover {
+    border-color: #f2f2f2;
+    background: rgba(255, 255, 255, 0.04);
+    transform: translateY(-4px);
+}
+
+.contact-card:focus-visible {
+    outline: 2px solid #f2f2f2;
+    outline-offset: 3px;
+}
+
+.contact-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.contact-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #888;
+}
+
+.contact-value {
+    font-size: 1.45rem;
+    font-weight: 500;
+    color: #fff;
+}
+
+.link-arrow {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    font-size: 1.25rem;
+    color: #888;
+    transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.contact-card:hover .link-arrow {
+    color: #fff;
+    transform: translate(4px, -4px);
+}
+
+@media (max-width: 720px) {
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-card {
+        padding: 32px;
+    }
 }

@@ -15,6 +15,12 @@
     color: #b9b9b9;
 }
 
+.footer-text {
+    font-family: var(--font-mojang);
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
 footer {
     text-align: center;
     color: #b8b8b8;
