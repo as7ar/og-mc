@@ -14,8 +14,13 @@ export async function GET(request: Request) {
   const status = searchParams.get("status");
   const qs = status ? `?status=${encodeURIComponent(status)}` : "";
 
+  const headers: Record<string, string> = {};
+  if (env.BANKAPI_ADMIN_KEY) {
+    headers["X-Admin-Key"] = env.BANKAPI_ADMIN_KEY;
+  }
+
   try {
-    const res = await fetch(`${baseUrl}/api/deposit-requests${qs}`, { cache: "no-store" });
+    const res = await fetch(`${baseUrl}/api/deposit-requests${qs}`, { cache: "no-store", headers });
     const data = await res.json();
     return NextResponse.json(data, { status: res.status });
   } catch (error: any) {

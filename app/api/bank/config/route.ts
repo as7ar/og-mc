@@ -11,8 +11,13 @@ export async function GET() {
   const env = getServerEnv();
   const baseUrl = env.BANKAPI_BASE_URL || "http://localhost:3001";
 
+  const headers: Record<string, string> = {};
+  if (env.BANKAPI_ADMIN_KEY) {
+    headers["X-Admin-Key"] = env.BANKAPI_ADMIN_KEY;
+  }
+
   try {
-    const res = await fetch(`${baseUrl}/api/config`, { cache: "no-store" });
+    const res = await fetch(`${baseUrl}/api/config`, { cache: "no-store", headers });
     const data = await res.json();
     return NextResponse.json(data, { status: res.status });
   } catch (error: any) {

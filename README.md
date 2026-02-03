@@ -24,6 +24,14 @@ SESSION_SECRET=CHANGE_ME_TO_A_32_CHARS_MIN_SECRET
 ADMIN_DISCORD_IDS=123,456,789
 BASE_URL=http://localhost:3000
 
+# SMTP (메일 발송)
+EMAIL_SMTP_HOST=
+EMAIL_SMTP_PORT=587
+EMAIL_SMTP_SECURE=false
+EMAIL_SMTP_USER=
+EMAIL_SMTP_PASS=
+EMAIL_FROM=OG <no-reply@example.com>
+
 # BankAPI
 BANKPIN=
 BANK_NAME=
@@ -59,10 +67,13 @@ npm run dev
 브라우저에서 `http://localhost:3000` 접속 후 `Discord로 로그인` 버튼을 사용하세요.
 
 ## 기능 요약
-- Discord OAuth2 Authorization Code Flow (scope: identify)
+- Discord OAuth2 Authorization Code Flow (scope: identify, email)
 - 세션 쿠키 기반 로그인 유지 (httpOnly, sameSite, secure(프로덕션))
 - Discord ID 기반 관리자 판별 및 ADMIN 배지 표시
 - 로그인/로그아웃 및 에러 UI
+- 로그인 시도 알림 메일 발송 (SMTP 설정 시)
+- 충전 완료 시 명세서 PDF 다운로드
+- 이메일 템플릿 편집 + 관리자 메일 발송
 - 페이지 로드/스크롤 진입 애니메이션 + prefers-reduced-motion 대응
 
 ## BankAPI (웹사이트 충전)
@@ -73,8 +84,9 @@ npm run dev
 - `GET /api/deposit-request/:id`: 충전 요청 조회
 - `GET /api/deposit-requests`: 충전 요청 목록
 - `POST /api/deposit-confirm`: 충전 승인 (관리자 키 선택)
+- `GET /api/email-templates`: 이메일 템플릿 조회 (관리자 키 필요)
+- `POST /api/email-templates`: 이메일 템플릿 저장 (관리자 키 필요)
 - `GET /charge`: 간단 충전 폼
-
 
 ## 지원하는 은행 목록
 

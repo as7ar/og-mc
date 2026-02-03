@@ -35,6 +35,9 @@ export interface StaggeredMenuProps {
     onMenuOpen?: () => void;
     onMenuClose?: () => void;
     isFixed?: boolean;
+    ctaLabel?: string;
+    ctaLink?: string;
+    ctaIcon?: React.ReactNode;
 }
 
 export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
@@ -52,7 +55,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                                                                 isFixed = false,
                                                                 closeOnClickAway = true,
                                                                 onMenuOpen,
-                                                                onMenuClose
+                                                                onMenuClose,
+                                                                ctaLabel,
+                                                                ctaLink,
+                                                                ctaIcon
                                                             }: StaggeredMenuProps) => {
     const [open, setOpen] = useState(false);
     const openRef = useRef(false);
@@ -399,7 +405,13 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                         const mid = Math.floor(arr.length / 2);
                         arr.splice(mid, 1);
                     }
-                    return arr.map((c, i) => <div key={i} className="sm-prelayer" style={{ background: c }} />);
+                    return arr.map((c, i) => (
+                        <div
+                            key={i}
+                            className="sm-prelayer"
+                            style={{ background: c, willChange: 'transform' }}
+                        />
+                    ));
                 })()}
             </div>
             <header className="staggered-menu-header" aria-label="Main navigation header">
@@ -436,7 +448,13 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                 </button>
             </header>
 
-            <aside id="staggered-menu-panel" ref={panelRef} className="staggered-menu-panel" aria-hidden={!open}>
+            <aside
+                id="staggered-menu-panel"
+                ref={panelRef}
+                className="staggered-menu-panel"
+                aria-hidden={!open}
+                style={{ willChange: 'transform' }}
+            >
                 <div className="sm-panel-inner">
                     <ul className="sm-panel-list" role="list" data-numbering={displayItemNumbering || undefined}>
                         {items && items.length ? (
@@ -455,20 +473,30 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                             </li>
                         )}
                     </ul>
-                    {displaySocials && socialItems && socialItems.length > 0 && (
-                        <div className="sm-socials" aria-label="Social links">
-                            <h3 className="sm-socials-title">Socials</h3>
-                            <ul className="sm-socials-list" role="list">
-                                {socialItems.map((s, i) => (
-                                    <li key={s.label + i} className="sm-socials-item">
-                                        <a href={s.link} target="_blank" rel="noopener noreferrer" className="sm-socials-link">
-                                            {s.label}
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
+                    <div className="sm-panel-footer">
+                        {displaySocials && socialItems && socialItems.length > 0 && (
+                            <div className="sm-socials" aria-label="Social links">
+                                <h3 className="sm-socials-title">Socials</h3>
+                                <ul className="sm-socials-list" role="list">
+                                    {socialItems.map((s, i) => (
+                                        <li key={s.label + i} className="sm-socials-item">
+                                            <a href={s.link} target="_blank" rel="noopener noreferrer" className="sm-socials-link">
+                                                {s.label}
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+                        {ctaLabel && ctaLink && (
+                            <a className="sm-cta" href={ctaLink} aria-label={ctaLabel}>
+                                <span className="sm-cta-icon" aria-hidden="true">
+                                    {ctaIcon ?? "*"}
+                                </span>
+                                <span>{ctaLabel}</span>
+                            </a>
+                        )}
+                    </div>
                 </div>
             </aside>
         </div>
@@ -476,3 +504,4 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 };
 
 export default StaggeredMenu;
+

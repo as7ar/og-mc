@@ -52,6 +52,7 @@ const schemaSql = `
     depositor_name TEXT NOT NULL,
     amount INTEGER NOT NULL,
     discord_user_id TEXT NOT NULL,
+    email TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     deadline_timestamp INTEGER NOT NULL,
     status TEXT DEFAULT 'pending',
@@ -69,6 +70,12 @@ const schemaSql = `
     changes TEXT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
+
+  CREATE TABLE IF NOT EXISTS email_templates (
+    key TEXT PRIMARY KEY,
+    subject TEXT NOT NULL,
+    body TEXT NOT NULL
+  );
 `;
 
 db.exec(schemaSql);
@@ -80,6 +87,22 @@ const defaultConfig = {
   bankAccountBank: String(process.env.BANK_ACCOUNT_BANK || ""),
   bankAccountNumber: String(process.env.BANK_ACCOUNT_NUMBER || ""),
   bankAccountName: String(process.env.BANK_ACCOUNT_NAME || ""),
+};
+
+const defaultEmailTemplates = {
+  login_attempt: {
+    subject: "[OG] 로그인 시도 알림",
+    body: "<p>{{name}}님, 로그인 시도가 감지되었습니다.</p><p>디스코드 ID: {{discordId}}</p><p>시간: {{date}}</p>",
+  },
+  charge_completed: {
+    subject: "[OG] 충전 완료 안내",
+    body:
+      "<p>{{name}}님, 충전이 완료되었습니다.</p><p>요청 ID: {{requestId}}</p><p>금액: {{amount}}</p><p>상태: {{status}}</p><p>계좌: {{account}}</p><p>시간: {{date}}</p>",
+  },
+  admin_generic: {
+    subject: "[OG] 알림",
+    body: "<p>{{content}}</p>",
+  },
 };
 
 function ensureConfigDefaults() {
@@ -116,7 +139,29 @@ function writeConfigLog(actor, before, after) {
   stmt.run(actor || "unknown", JSON.stringify(changes));
 }
 
+function ensureEmailTemplates() {
+  const insertStmt = db.prepare("INSERT OR IGNORE INTO email_templates (key, subject, body) VALUES (?, ?, ?)");
+  Object.entries(defaultEmailTemplates).forEach(([key, value]) =>
+    insertStmt.run(key, value.subject, value.body)
+  );
+}
+
+function getEmailTemplates() {
+  const rows = db.prepare("SELECT key, subject, body FROM email_templates ORDER BY key ASC").all();
+  if (!rows.length) {
+    ensureEmailTemplates();
+    return db.prepare("SELECT key, subject, body FROM email_templates ORDER BY key ASC").all();
+  }
+  return rows;
+}
+
+function upsertEmailTemplate(key, subject, body) {
+  const stmt = db.prepare("INSERT OR REPLACE INTO email_templates (key, subject, body) VALUES (?, ?, ?)");
+  stmt.run(key, subject, body);
+}
+
 ensureConfigDefaults();
+ensureEmailTemplates();
 
 // transfers 테이블에 discord_user_id 컬럼이 없으면 추가 (마이그레이션)
 try {
@@ -128,6 +173,18 @@ try {
   }
 } catch (e) {
   console.log("[DB] transfers 테이블 discord_user_id 컬럼 추가 오류:", e.message);
+}
+
+// deposit_requests 테이블에 email 컬럼이 없으면 추가 (마이그레이션)
+try {
+  const colCheck = db.prepare("PRAGMA table_info(deposit_requests)").all();
+  const hasEmail = colCheck.some((col) => col.name === "email");
+  if (!hasEmail) {
+    db.prepare("ALTER TABLE deposit_requests ADD COLUMN email TEXT").run();
+    console.log("[DB] deposit_requests 테이블에 email 컬럼 추가 완료");
+  }
+} catch (e) {
+  console.log("[DB] deposit_requests 테이블 email 컬럼 추가 오류:", e.message);
 }
 
 console.log(`[DB] SQLite 준비 완료: ${dbPath}`);
@@ -432,7 +489,7 @@ async function processTransfer(appName, playerName, bankName, amount) {
 }
 
 // ===== 웹사이트 충전 =====
-function createDepositRequest(playerName, depositorName, amount, discordUserId, minecraftName) {
+function createDepositRequest(playerName, depositorName, amount, discordUserId, minecraftName, email) {
   if (!playerName || !depositorName || !amount) {
     return { success: false, error: "필수 입력값이 누락되었습니다." };
   }
@@ -462,10 +519,19 @@ function createDepositRequest(playerName, depositorName, amount, discordUserId, 
 
   const stmt = db.prepare(`
     INSERT INTO deposit_requests
-      (request_id, player_name, depositor_name, amount, discord_user_id, deadline_timestamp, minecraft_name)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+      (request_id, player_name, depositor_name, amount, discord_user_id, email, deadline_timestamp, minecraft_name)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
   `);
-  stmt.run(requestId, playerName, depositorName, amountNum, discordUserId || "web", deadline, minecraftName || null);
+  stmt.run(
+    requestId,
+    playerName,
+    depositorName,
+    amountNum,
+    discordUserId || "web",
+    email || null,
+    deadline,
+    minecraftName || null
+  );
 
   return {
     success: true,
@@ -747,11 +813,49 @@ app.get("/api/config-logs", (req, res) => {
   }
 });
 
+// 이메일 템플릿 조회
+app.get("/api/email-templates", (req, res) => {
+  try {
+    if (adminApiKey) {
+      const key = req.header("X-Admin-Key");
+      if (!key || key !== adminApiKey) {
+        return res.status(401).json({ error: "관리자 키가 필요합니다." });
+      }
+    }
+    const templates = getEmailTemplates();
+    return res.json({ success: true, templates });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+// 이메일 템플릿 저장 (관리자)
+app.post("/api/email-templates", (req, res) => {
+  try {
+    if (adminApiKey) {
+      const key = req.header("X-Admin-Key");
+      if (!key || key !== adminApiKey) {
+        return res.status(401).json({ error: "관리자 키가 필요합니다." });
+      }
+    }
+
+    const { key, subject, body } = req.body || {};
+    if (!key || !subject || !body) {
+      return res.status(400).json({ error: "key, subject, body가 필요합니다." });
+    }
+    upsertEmailTemplate(String(key), String(subject), String(body));
+    const templates = getEmailTemplates();
+    return res.json({ success: true, templates });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
 // 웹사이트 충전 요청 생성
 app.post("/api/deposit-request", (req, res) => {
   try {
-    const { playerName, depositorName, amount, discordUserId, minecraftName } = req.body;
-    const result = createDepositRequest(playerName, depositorName, amount, discordUserId, minecraftName);
+    const { playerName, depositorName, amount, discordUserId, minecraftName, email } = req.body;
+    const result = createDepositRequest(playerName, depositorName, amount, discordUserId, minecraftName, email);
     if (!result.success) {
       return res.status(400).json(result);
     }
@@ -770,12 +874,16 @@ app.get("/api/deposit-request/:id", (req, res) => {
     if (!request) {
       return res.status(404).json({ error: "충전 요청을 찾을 수 없습니다." });
     }
+    const isAdminRequest = adminApiKey
+      ? req.header("X-Admin-Key") && req.header("X-Admin-Key") === adminApiKey
+      : true;
     return res.json({
       requestId: request.request_id,
       playerName: request.player_name,
       depositorName: request.depositor_name,
       amount: request.amount,
       discordUserId: request.discord_user_id,
+      email: isAdminRequest ? request.email : undefined,
       createdAt: request.created_at,
       deadlineTimestamp: request.deadline_timestamp,
       status: request.status,
@@ -800,6 +908,9 @@ app.get("/api/deposit-requests", (req, res) => {
 
     const stmt = db.prepare(query);
     const rows = stmt.all(...values);
+    const isAdminRequest = adminApiKey
+      ? req.header("X-Admin-Key") && req.header("X-Admin-Key") === adminApiKey
+      : true;
 
     return res.json({
       success: true,
@@ -810,6 +921,7 @@ app.get("/api/deposit-requests", (req, res) => {
         depositorName: r.depositor_name,
         amount: r.amount,
         discordUserId: r.discord_user_id,
+        email: isAdminRequest ? r.email : undefined,
         createdAt: r.created_at,
         deadlineTimestamp: r.deadline_timestamp,
         status: r.status,

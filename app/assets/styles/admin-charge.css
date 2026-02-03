@@ -320,3 +320,252 @@
     grid-template-columns: 1fr;
   }
 }
+
+.admin-templates,
+.admin-mail {
+  margin-top: 1.4rem;
+  padding: 1.2rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(12, 16, 25, 0.6);
+}
+
+.admin-template-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.admin-control-wide {
+  grid-column: span 2;
+}
+
+.admin-control textarea {
+  padding: 0.7rem 0.9rem;
+  border-radius: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(12, 16, 25, 0.8);
+  color: #fff;
+  resize: vertical;
+  min-height: 120px;
+}
+
+.template-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  padding: 0.6rem;
+  border-radius: 0.8rem;
+  background: rgba(7, 10, 18, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+}
+
+.editor-mode-toggle {
+  margin-top: 0.6rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.template-toolbar button,
+.template-toolbar select,
+.template-file {
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(12, 16, 25, 0.8);
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.toolbar-group {
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+  padding-right: 0.4rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.toolbar-group:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.template-toolbar button.active {
+  background: rgba(88, 101, 242, 0.8);
+  border-color: rgba(88, 101, 242, 0.9);
+}
+
+.template-file {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.template-file input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.template-color {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(12, 16, 25, 0.8);
+}
+
+.template-color input {
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+.template-editor {
+  min-height: 260px;
+  padding: 1.2rem 1.4rem;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(12, 16, 25, 0.75);
+  color: #fff;
+  outline: none;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.template-editor .tiptap-editor {
+  min-height: 240px;
+  outline: none;
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+.template-editor .tiptap-editor p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: rgba(255, 255, 255, 0.4);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.template-editor img {
+  max-width: 100%;
+  border-radius: 0.6rem;
+  margin: 0.5rem 0;
+}
+
+.template-editor table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.6rem 0;
+}
+
+.template-editor th,
+.template-editor td {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 8px 10px;
+  text-align: left;
+}
+
+.template-editor .tiptap-editor a {
+  color: #9db6ff;
+  text-decoration: underline;
+}
+
+.email-preview-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+}
+
+.email-preview-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 7, 11, 0.7);
+  backdrop-filter: blur(6px);
+}
+
+.email-preview-card {
+  position: relative;
+  z-index: 1;
+  width: min(840px, 94vw);
+  max-height: 88vh;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: rgba(12, 16, 25, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-direction: column;
+}
+
+.email-preview-card header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.email-preview-card header button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.email-preview-body {
+  padding: 1.4rem;
+  overflow: auto;
+}
+
+.email-preview-subject {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.email-preview-content {
+  background: #0f1420;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.8rem;
+  padding: 1.2rem;
+}
+
+.template-editor .email-btn {
+  display: inline-block;
+  margin: 0.35rem 0;
+}
+
+.admin-actions a.admin-detail {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+@media (max-width: 900px) {
+  .admin-template-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-control-wide {
+    grid-column: auto;
+  }
+}

@@ -9,6 +9,7 @@ export type SessionData = {
   displayName?: string;
   avatarUrl?: string;
   isAdmin?: boolean;
+  email?: string;
 };
 
 const sessionOptions: SessionOptions = {

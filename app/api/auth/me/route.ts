@@ -6,18 +6,20 @@ export async function GET() {
 
   if (!session.discordId) {
     return NextResponse.json(
-      { error: "unauthenticated" },
-      { status: 401, headers: { "Cache-Control": "no-store" } }
+      { authenticated: false },
+      { status: 200, headers: { "Cache-Control": "no-store" } }
     );
   }
 
   return NextResponse.json(
     {
+      authenticated: true,
       discordId: session.discordId,
       username: session.username,
       displayName: session.displayName,
       avatarUrl: session.avatarUrl,
       isAdmin: session.isAdmin ?? false,
+      email: session.email,
     },
     { headers: { "Cache-Control": "no-store" } }
   );

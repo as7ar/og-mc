@@ -12,7 +12,7 @@ export async function GET() {
     client_id: env.DISCORD_CLIENT_ID,
     response_type: "code",
     redirect_uri: env.DISCORD_REDIRECT_URI,
-    scope: "identify",
+    scope: "identify email",
     state,
   });
 

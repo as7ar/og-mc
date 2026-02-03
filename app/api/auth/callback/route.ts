@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerEnv } from "@/app/lib/env";
 import { getSession } from "@/app/lib/session";
+import { fetchEmailTemplate } from "@/app/lib/email-templates";
+import { renderTemplate, sendMail } from "@/app/lib/mailer";
 import { isAdminDiscordId } from "@/app/lib/admin";
 
 const API_ENDPOINT = "https://discord.com/api/v10";
@@ -82,6 +84,7 @@ export async function GET(request: NextRequest) {
       display_name?: string | null;
       avatar?: string | null;
       discriminator?: string | null;
+      email?: string | null;
     };
 
     const displayName = user.global_name ?? user.display_name ?? user.username;
@@ -93,7 +96,32 @@ export async function GET(request: NextRequest) {
     session.displayName = displayName;
     session.avatarUrl = avatarUrl;
     session.isAdmin = isAdminDiscordId(user.id);
+    if (user.email) {
+      session.email = user.email;
+    }
     await session.save();
+
+    if (user.email) {
+      try {
+        const template = await fetchEmailTemplate("login_attempt");
+        if (template) {
+          const subject = renderTemplate(template.subject, {
+            name: displayName,
+            username: user.username,
+            discordId: user.id,
+          });
+          const body = renderTemplate(template.body, {
+            name: displayName,
+            username: user.username,
+            discordId: user.id,
+            date: new Date().toLocaleString(),
+          });
+          await sendMail({ to: user.email, subject, html: body });
+        }
+      } catch (e) {
+        console.error("[mail] login attempt mail failed", e);
+      }
+    }
 
     const response = NextResponse.redirect(`${baseUrl}/?login=success`);
     response.cookies.set("og_oauth_state", "", { maxAge: 0, path: "/" });

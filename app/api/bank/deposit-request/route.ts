@@ -18,6 +18,7 @@ export async function POST(request: Request) {
     amount: body.amount,
     discordUserId: session.discordId,
     minecraftName: body.minecraftName,
+    email: session.email,
   };
 
   try {

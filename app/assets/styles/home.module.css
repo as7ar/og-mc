@@ -52,6 +52,18 @@
     z-index: 2;
 }
 
+.contentMain {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 3rem;
+    position: relative;
+    z-index: 2;
+    padding: 8rem 0 5rem;
+}
+
 .hero {
     display: flex;
     flex-direction: column;
@@ -538,6 +550,36 @@
     opacity: 0.8;
 }
 
+.requestFilters {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 180px 180px 1fr;
+    gap: 1rem;
+    margin: 0.8rem 0 1.2rem;
+}
+
+.filterItem,
+.filterItemWide {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.filterSelect,
+.filterInput {
+    padding: 0.75rem 0.9rem;
+    border-radius: 0.8rem;
+    background: rgba(8, 10, 16, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: #fff;
+    outline: none;
+}
+
+.filterSelect:focus,
+.filterInput:focus {
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
 @media (prefers-reduced-motion: reduce) {
     .page,
     .reveal {
@@ -570,4 +612,30 @@
     .depositGrid {
         grid-template-columns: 1fr;
     }
+
+    .requestFilters {
+        grid-template-columns: 1fr;
+    }
+}
+
+.requestActions {
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.requestInvoice {
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(88, 101, 242, 0.2);
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.requestInvoice:hover {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(88, 101, 242, 0.25);
 }

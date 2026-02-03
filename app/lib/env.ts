@@ -16,6 +16,12 @@ export type ServerEnv = {
   BASE_URL?: string;
   BANKAPI_BASE_URL?: string;
   BANKAPI_ADMIN_KEY?: string;
+  EMAIL_SMTP_HOST?: string;
+  EMAIL_SMTP_PORT?: string;
+  EMAIL_SMTP_SECURE?: string;
+  EMAIL_SMTP_USER?: string;
+  EMAIL_SMTP_PASS?: string;
+  EMAIL_FROM?: string;
 };
 
 export function assertServerEnv(): ServerEnv {
@@ -41,6 +47,12 @@ export function assertServerEnv(): ServerEnv {
     BASE_URL: process.env.BASE_URL,
     BANKAPI_BASE_URL: process.env.BANKAPI_BASE_URL,
     BANKAPI_ADMIN_KEY: process.env.BANKAPI_ADMIN_KEY,
+    EMAIL_SMTP_HOST: process.env.EMAIL_SMTP_HOST,
+    EMAIL_SMTP_PORT: process.env.EMAIL_SMTP_PORT,
+    EMAIL_SMTP_SECURE: process.env.EMAIL_SMTP_SECURE,
+    EMAIL_SMTP_USER: process.env.EMAIL_SMTP_USER,
+    EMAIL_SMTP_PASS: process.env.EMAIL_SMTP_PASS,
+    EMAIL_FROM: process.env.EMAIL_FROM,
   };
 }
 

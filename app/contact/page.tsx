@@ -10,8 +10,8 @@ const contactMeta = [
   {
     ariaLabel: "Support Mail",
     contactLabel: "지원",
-    contactValue: "support@ogserver.kr",
-    href: "mailto:support@ogserver.kr",
+    contactValue: "support@og.sudis.kr",
+    href: "mailto:support@og.sudis.kr",
   },
 ];
 

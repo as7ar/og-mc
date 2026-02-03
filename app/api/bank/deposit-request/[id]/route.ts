@@ -2,7 +2,7 @@
 import { getSession } from "@/app/lib/session";
 import { getServerEnv } from "@/app/lib/env";
 
-export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function GET(_request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const session = await getSession();
   if (!session.discordId) {
     return NextResponse.json({ error: "unauthenticated" }, { status: 401 });

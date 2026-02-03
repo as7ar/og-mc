@@ -12,7 +12,7 @@ export default function Footer() {
                 OG SERVER
             </div>
             <div className='copyrights'>
-                <b>2025 &copy; OG Server. ALL RIGHT RESERVED</b>
+                <b>2025-2026 &copy; OG Server. ALL RIGHT RESERVED</b>
             </div>
         </footer>
     )
