@@ -1,13 +1,6 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #05070b;
+  --foreground: #ffffff;
 }
 
 html,
@@ -117,6 +110,13 @@ a {
           inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
+.login-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
 .login-title {
   font-size: 32px;
   font-weight: 700;
@@ -125,7 +125,8 @@ a {
 
 .login-desc {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.75);
+  color: #fff;
+  opacity: 0.75;
 }
 
 .discord-login {
@@ -171,7 +172,7 @@ a {
   border: 1px solid rgba(255, 80, 80, 0.35);
   border-radius: 12px;
 
-  color: #ffdcdc;
+  color: #fff;
   font-size: 14px;
 
   animation: slideDown 0.25s ease;
@@ -180,7 +181,7 @@ a {
 .login-alert button {
   background: none;
   border: none;
-  color: #ffdcdc;
+  color: #fff;
   font-size: 18px;
   cursor: pointer;
 }
@@ -191,7 +192,8 @@ a {
   left: 0;
 
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.65);
+  color: #fff;
+  opacity: 0.65;
   text-decoration: none;
 
   padding: 6px 10px;
@@ -206,6 +208,7 @@ a {
 
 .login-back:hover {
   color: #fff;
+  opacity: 1;
   background: rgba(255, 255, 255, 0.12);
 }
 
@@ -221,8 +224,11 @@ a {
 }
 
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }

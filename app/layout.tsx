@@ -5,6 +5,9 @@ import favicon from "@/app/assets/favicon.ico";
 import { pretendard } from "./font";
 import Header from "@/app/components/header";
 import Footer from "@/app/components/footer";
+import { assertServerEnv } from "@/app/lib/env";
+
+assertServerEnv();
 
 const geistSans = Geist({
   variable: "--fonts-geist-sans",

@@ -59,11 +59,11 @@
 }
 
 .sm-toggle {
-    color: #000;
+    color: #cbd5e1;
 }
 
 .staggered-menu-wrapper[data-open] .sm-toggle {
-    color: #fff;
+    color: #f4d7b0;
 }
 
 .sm-toggle {
@@ -74,14 +74,14 @@
     background: transparent;
     border: none;
     cursor: pointer;
-    color: #e9e9ef;
+    color: #cbd5e1;
     font-weight: 500;
     line-height: 1;
     overflow: visible;
 }
 
 .sm-toggle:focus-visible {
-    outline: 2px solid #ffffffaa;
+    outline: 2px solid #f4d7b0aa;
     outline-offset: 4px;
     border-radius: 4px;
 }
@@ -270,7 +270,7 @@
     margin: 0;
     font-size: 1rem;
     font-weight: 600;
-    color: #fff;
+    color: #1a1a1a;
     text-transform: uppercase;
 }
 

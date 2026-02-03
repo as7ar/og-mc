@@ -2,6 +2,14 @@
     min-height: 100vh;
     position: relative;
     overflow: hidden;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.page[data-loaded="true"] {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .bg {
@@ -53,6 +61,12 @@
     padding-right: 0;
 }
 
+.textBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .imageWrap {
     position: relative;
     display: inline-block;
@@ -65,11 +79,16 @@
     position: relative;
     z-index: 2;
     transition: transform 0.3s ease, filter 0.3s ease;
+    transform: translateY(12px) scale(0.92);
 }
 
 .logo:hover {
     transform: scale(1.04);
     filter: brightness(1.15);
+}
+
+.page[data-loaded="true"] .logo {
+    animation: logoIntro 0.9s ease forwards, logoFloat 6s ease-in-out 1.1s infinite;
 }
 
 .glow {
@@ -110,6 +129,28 @@
     background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(6px);
     opacity: 0.85;
+    color: #fff;
+}
+
+@keyframes logoIntro {
+    0% {
+        transform: translateY(18px) scale(0.88);
+        filter: brightness(0.9);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        filter: brightness(1);
+    }
+}
+
+@keyframes logoFloat {
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-10px) scale(1.02);
+    }
 }
 
 .heroActions {
@@ -128,7 +169,7 @@
 
 .btnPrimary {
     background: rgba(120, 180, 255, 0.85);
-    color: #000;
+    color: #fff;
 }
 
 .btnPrimary:hover {
@@ -171,6 +212,7 @@
 .sectionDesc {
     opacity: 0.7;
     font-size: 1rem;
+    color: #fff;
 }
 
 .grid3 {
@@ -185,6 +227,7 @@
     background: rgba(255, 255, 255, 0.04);
     backdrop-filter: blur(8px);
     transition: transform 0.25s ease, background 0.25s ease;
+    color: #fff;
 }
 
 .card:hover {
@@ -213,6 +256,299 @@
     font-size: 0.95rem;
     line-height: 1.6;
     opacity: 0.8;
+    color: #fff;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.revealVisible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.authSection {
+    width: min(980px, 92vw);
+    padding: 2.8rem 2.4rem;
+    border-radius: 1.8rem;
+    background: rgba(12, 16, 25, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    text-align: center;
+    color: #fff;
+}
+
+.authHeading {
+    font-size: 1.6rem;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.6rem;
+}
+
+.authSub {
+    opacity: 0.7;
+    margin-bottom: 1.6rem;
+}
+
+.authActions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.discordButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.5rem;
+    border-radius: 999px;
+    background: rgba(88, 101, 242, 0.9);
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 10px 24px rgba(88, 101, 242, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.discordButton:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 14px 30px rgba(88, 101, 242, 0.5);
+}
+
+.userCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.userRow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.userAvatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.userMeta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    align-items: flex-start;
+}
+
+.userName {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.userId {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    color: #fff;
+}
+
+.adminBadge {
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.16);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: #fff;
+}
+
+.logoutButton {
+    padding: 0.75rem 1.4rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.2s ease, border 0.2s ease;
+}
+
+.logoutButton:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
+.adminLink {
+    padding: 0.75rem 1.4rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #fff;
+    text-decoration: none;
+    transition: transform 0.2s ease, border 0.2s ease;
+}
+
+.adminLink:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
+.loginError {
+    margin-top: 1rem;
+    padding: 0.6rem 1rem;
+    border-radius: 0.9rem;
+    background: rgba(255, 80, 80, 0.15);
+    border: 1px solid rgba(255, 80, 80, 0.35);
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+.depositGrid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 0.6rem;
+}
+
+.depositField {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.depositLabel {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff;
+    opacity: 0.7;
+}
+
+.depositInput {
+    padding: 0.75rem 0.9rem;
+    border-radius: 0.8rem;
+    background: rgba(8, 10, 16, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: #fff;
+    outline: none;
+}
+
+.depositInput:focus {
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+.depositButton {
+    grid-column: 1 / -1;
+    padding: 0.85rem 1.4rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(88, 101, 242, 0.85);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.depositButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(88, 101, 242, 0.35);
+}
+
+.depositButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.depositResult {
+    grid-column: 1 / -1;
+    padding: 0.8rem 1rem;
+    border-radius: 0.9rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+.depositAccount {
+    margin-top: 0.4rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: 0.7rem;
+    background: rgba(12, 16, 25, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+.requestList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.requestCard {
+    padding: 0.9rem 1rem;
+    border-radius: 0.9rem;
+    background: rgba(12, 16, 25, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #fff;
+}
+
+.requestRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+}
+
+.requestId {
+    font-size: 0.8rem;
+    opacity: 0.75;
+}
+
+.requestStatus {
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+}
+
+.requestStatusOk {
+    background: rgba(120, 255, 180, 0.15);
+    border: 1px solid rgba(120, 255, 180, 0.4);
+}
+
+.requestStatusPending {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.requestMeta {
+    margin-top: 0.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page,
+    .reveal {
+        opacity: 1;
+        transform: none;
+    }
+
+    .logo {
+        animation: none !important;
+        transform: none !important;
+    }
 }
 
 @media (max-width: 900px) {
@@ -228,6 +564,10 @@
     }
 
     .grid3 {
+        grid-template-columns: 1fr;
+    }
+
+    .depositGrid {
         grid-template-columns: 1fr;
     }
 }

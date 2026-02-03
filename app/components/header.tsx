@@ -15,8 +15,8 @@ export default function Header() {
                     items={menuItems}
                     displaySocials
                     displayItemNumbering={true}
-                    menuButtonColor="#ffffff"
-                    openMenuButtonColor="#fff"
+                    menuButtonColor="#cbd5e1"
+                    openMenuButtonColor="#f4d7b0"
                     changeMenuColorOnOpen={true}
                     colors={['#a2ef9e', '#7f522a']}
                     accentColor="#7f522a"

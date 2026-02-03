@@ -12,7 +12,7 @@
 }
 
 .social-icons a:hover {
-    color: #b9b9b9;
+    color: #fff;
 }
 
 .footer-text {
@@ -23,7 +23,7 @@
 
 footer {
     text-align: center;
-    color: #b8b8b8;
+    color: #fff;
     padding: 1.2rem 0;
     font-size: 1rem;
     letter-spacing: 0.05em;

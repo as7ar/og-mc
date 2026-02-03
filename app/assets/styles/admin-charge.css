@@ -1,0 +1,322 @@
+﻿.admin-charge-page {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+}
+
+.admin-charge-bg {
+  position: absolute;
+  inset: 0;
+  background: #05070b;
+}
+
+.admin-charge-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(88, 101, 242, 0.25), transparent 60%);
+}
+
+.admin-charge-main {
+  position: relative;
+  z-index: 2;
+  padding: 6rem 6vw 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.admin-charge-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.admin-charge-header h1 {
+  font-size: 2rem;
+  letter-spacing: 0.1em;
+}
+
+.admin-sub {
+  margin-top: 0.4rem;
+  opacity: 0.7;
+}
+
+.admin-refresh {
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.admin-header-actions {
+  display: inline-flex;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.admin-export {
+  padding: 0.7rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  cursor: pointer;
+}
+
+.admin-list {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1rem;
+  padding: 1.4rem;
+  backdrop-filter: blur(12px);
+}
+
+.admin-config {
+  padding: 1.2rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(12, 16, 25, 0.6);
+  margin-bottom: 1.4rem;
+}
+
+.admin-config h2 {
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+}
+
+.admin-config-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.admin-config-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.admin-controls {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+  margin-bottom: 1rem;
+}
+
+.admin-control {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 160px;
+}
+
+.admin-control.grow {
+  flex: 1;
+}
+
+.admin-control label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  opacity: 0.7;
+}
+
+.admin-control input,
+.admin-control select {
+  padding: 0.7rem 0.9rem;
+  border-radius: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(12, 16, 25, 0.8);
+  color: #fff;
+}
+
+.admin-table {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.admin-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr auto;
+  gap: 0.8rem;
+  padding: 0.8rem 0.6rem;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.admin-row:last-child {
+  border-bottom: none;
+}
+
+.admin-head {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  opacity: 0.7;
+}
+
+.admin-actions {
+  display: inline-flex;
+  gap: 0.5rem;
+}
+
+.admin-confirm {
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(88, 101, 242, 0.8);
+  color: #fff;
+  cursor: pointer;
+}
+
+.admin-detail {
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.admin-status.pending {
+  color: #fff;
+  opacity: 0.8;
+}
+
+.admin-status.confirmed {
+  color: #a8f3c0;
+}
+
+.admin-confirm:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-empty {
+  padding: 1.2rem 1rem;
+  border-radius: 0.8rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.admin-error {
+  margin-bottom: 1rem;
+  padding: 0.8rem 1rem;
+  border-radius: 0.8rem;
+  background: rgba(255, 80, 80, 0.15);
+  border: 1px solid rgba(255, 80, 80, 0.35);
+  color: #fff;
+}
+
+.admin-success {
+  margin-bottom: 1rem;
+  padding: 0.8rem 1rem;
+  border-radius: 0.8rem;
+  background: rgba(120, 255, 180, 0.12);
+  border: 1px solid rgba(120, 255, 180, 0.35);
+  color: #fff;
+}
+
+.mono {
+  font-family: var(--fonts-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.85rem;
+}
+
+.admin-modal {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 50;
+}
+
+.admin-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 7, 11, 0.7);
+  backdrop-filter: blur(6px);
+}
+
+.admin-modal-card {
+  position: relative;
+  z-index: 1;
+  width: min(720px, 92vw);
+  border-radius: 1rem;
+  background: rgba(12, 16, 25, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 1.6rem;
+  color: #fff;
+}
+
+.admin-modal-card header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.admin-modal-card header button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.admin-modal-body {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem 1.2rem;
+}
+
+.admin-modal-body div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.admin-modal-body span {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.65;
+}
+
+.admin-modal-actions {
+  margin-top: 1.2rem;
+  display: flex;
+  gap: 0.8rem;
+  justify-content: flex-end;
+}
+
+@media (max-width: 900px) {
+  .admin-charge-main {
+    padding: 5rem 6vw 3rem;
+  }
+
+  .admin-row {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
+  .admin-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-config-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-modal-body {
+    grid-template-columns: 1fr;
+  }
+}
